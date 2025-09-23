@@ -1,27 +1,25 @@
-package org.mytodoapp.todo.user.dto;
+package org.mytodoapp.todo.security.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.mytodoapp.todo.user.entity.Role;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateDto {
+@NoArgsConstructor
+public class RegisterRequestDto {
 
-    @NotBlank(message = "User name is required")
-    @Pattern(
-            regexp = "^[A-Za-z0-9_]{3,20}$",
-            message = "Username must be 3-20 characters and contain only letters, numbers, or underscores"
-    )
+    @NotBlank(message = "Name is required")
     private String username;
 
     @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email address")
+    @Email(message = "Invalid email format")
     private String email;
 
     @NotBlank(message = "Password is required")
@@ -32,6 +30,7 @@ public class UserCreateDto {
     )
     private String password;
 
-    private Role role = Role.USER;
+    @NotBlank(message = "Confirm Password is required")
+    private String confirmPassword;
 
 }

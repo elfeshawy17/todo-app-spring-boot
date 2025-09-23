@@ -10,17 +10,21 @@ import org.mytodoapp.todo.user.entity.User;
 import org.mytodoapp.todo.user.mapper.UserMapper;
 import org.mytodoapp.todo.user.repo.UserRepo;
 import org.mytodoapp.todo.user.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDto add(UserCreateDto dto) {
@@ -28,7 +32,12 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateResourceException("Email already exists: " + dto.getEmail());
         }
 
+        if (userRepo.findByUsername(dto.getUsername()).isPresent()) {
+            throw new DuplicateResourceException("Username already exists: " + dto.getUsername());
+        }
+
         User user = userMapper.toEntity(dto);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
         userRepo.save(user);
         return userMapper.toResponseDto(user);
     }

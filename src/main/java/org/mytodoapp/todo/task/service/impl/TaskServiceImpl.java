@@ -10,10 +10,12 @@ import org.mytodoapp.todo.task.repo.TaskRepo;
 import org.mytodoapp.todo.task.service.TaskService;
 import org.mytodoapp.todo.user.entity.User;
 import org.mytodoapp.todo.user.repo.UserRepo;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 @AllArgsConstructor
 @Service
 public class TaskServiceImpl implements TaskService {
