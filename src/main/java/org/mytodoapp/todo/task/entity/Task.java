@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.mytodoapp.todo.user.entity.User;
 
+@Builder
 @Entity
 @Getter
 @Setter

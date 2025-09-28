@@ -3,6 +3,7 @@ package org.mytodoapp.todo.task.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

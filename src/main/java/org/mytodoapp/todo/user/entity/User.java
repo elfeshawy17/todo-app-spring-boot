@@ -6,6 +6,7 @@ import org.mytodoapp.todo.task.entity.Task;
 
 import java.util.List;
 
+@Builder
 @Entity
 @Getter
 @Setter
