@@ -22,6 +22,7 @@ A modern, secure RESTful Todo application built with Spring Boot that allows use
 - 🏗️ **Clean Architecture**: Well-structured codebase with separation of concerns
 - 📖 **API Documentation**: RESTful API design with consistent response format
 - 🔄 **Data Mapping**: Automatic entity-DTO mapping using MapStruct
+- 🧪 **Unit Testing**: Comprehensive JUnit 5 tests with Mockito for mocking dependencies
 
 ## 🏗️ Architecture
 
@@ -69,6 +70,9 @@ src/main/java/org/mytodoapp/todo/
 - **Validation**: Bean Validation (JSR 303)
 - **Build Tool**: Maven
 - **Architecture**: Layered Architecture (Controller → Service → Repository)
+- **Testing**:  
+  - **Unit Testing**: JUnit 5  
+  - **Mocking**: Mockito for isolating service and repository layers
 
 ## 🔐 Security Features
 
@@ -272,38 +276,88 @@ Content-Type: application/json
 }
 ```
 
-## 🎯 Key Features Explained
+## 🧪 Testing
 
-### 🔐 Security Implementation
-- **JWT Authentication**: Stateless authentication using JSON Web Tokens
-- **Role-based Authorization**: ADMIN and USER roles with different access levels
-- **Password Security**: BCrypt encryption with configurable strength
-- **Token Refresh**: Secure token refresh mechanism to maintain user sessions
+The application includes comprehensive unit tests to ensure code quality and reliability.
 
-### ✨ Validation System
-- **User Registration**: Username (3-20 chars), valid email, strong password requirements
-- **Password Validation**: Must contain uppercase, lowercase, digit, and special character
-- **Email Uniqueness**: Prevents duplicate user registrations
-- **Task Validation**: Required title and description fields
+### Test Coverage
 
-### 🛡️ Exception Handling
-- **Global Exception Handler**: Centralized error handling across the application
-- **Security Exceptions**: Proper handling of authentication and authorization failures
-- **Custom Exceptions**: `RecordNotFoundException`, `DuplicateResourceException`
-- **Consistent Response Format**: All responses follow the same `ApiResponse` structure
+- **Authentication Service Tests**: Complete test coverage for registration, login, and token refresh functionality
+- **User Service Tests**: Full CRUD operation testing with validation and error handling
+- **Task Service Tests**: Comprehensive tests for task management operations
 
-### 🔄 Data Mapping
-- **MapStruct Integration**: Automatic mapping between entities and DTOs
-- **Security Mapping**: Safe mapping that excludes sensitive data in responses
-- **Clean Separation**: Clear distinction between internal entities and external DTOs
+### Test Structure
 
-## 🔒 Password Requirements
+```
+src/test/java/org/mytodoapp/todo/
+├── 📁 security/
+│   └── 📁 auth/
+│       ├── 📁 service/impl/
+│       │   └── AuthServiceImplTest.java
+│       └── 📁 util/
+│           └── AuthTestDataFactory.java
+├── 📁 user/
+│   ├── 📁 service/impl/
+│   │   └── UserServiceImplTest.java
+│   └── 📁 util/
+│       └── UserTestDataFactory.java
+└── 📁 task/
+    ├── 📁 service/impl/
+    │   └── TaskServiceImplTest.java
+    └── 📁 util/
+        └── TaskTestDataFactory.java
+```
 
-- Minimum 8 characters, maximum 20 characters
-- At least one uppercase letter (A-Z)
-- At least one lowercase letter (a-z)
-- At least one digit (0-9)
-- At least one special character (!@#$%^&*()_+=-{}|:;"'<>,.?/)
+### Running Tests
+
+```bash
+# Run all tests
+mvn test
+
+# Run tests with coverage report
+mvn test jacoco:report
+
+# Run specific test class
+mvn test -Dtest=AuthServiceImplTest
+
+# Run tests in a specific package
+mvn test -Dtest="org.mytodoapp.todo.security.auth.**"
+```
+
+### Test Features
+
+- **Mockito Integration**: Using `@Mock` and `@InjectMocks` for clean dependency injection
+- **Test Data Factories**: Reusable factory classes for creating test data
+- **Comprehensive Scenarios**: Testing success cases, validation failures, and error handling
+- **Assertions**: Thorough verification of expected outcomes and method interactions
+
+### Key Test Scenarios
+
+#### Authentication Tests
+- ✅ Successful user registration
+- ✅ Registration with duplicate email
+- ✅ Password mismatch validation
+- ✅ Successful login with valid credentials
+- ✅ Login failure with invalid credentials
+- ✅ Token refresh with valid refresh token
+- ✅ Token refresh with invalid/expired token
+
+#### User Service Tests
+- ✅ Create user with valid data
+- ✅ Prevent duplicate email/username
+- ✅ Update user information
+- ✅ Delete existing user
+- ✅ Find user by ID
+- ✅ Retrieve all users
+- ✅ Handle non-existent user scenarios
+
+#### Task Service Tests
+- ✅ Add task to existing user
+- ✅ Update task information
+- ✅ Delete task
+- ✅ Find task by user and task ID
+- ✅ Retrieve all tasks for a user
+- ✅ Handle non-existent user/task scenarios
 
 ## 🚀 Usage Flow
 
