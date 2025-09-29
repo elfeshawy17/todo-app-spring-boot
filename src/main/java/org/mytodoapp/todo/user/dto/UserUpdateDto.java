@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.mytodoapp.todo.user.entity.Role;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
