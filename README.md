@@ -2,6 +2,8 @@
 
 A modern, secure RESTful Todo application built with Spring Boot that allows users to manage their tasks efficiently. This application provides a complete CRUD API for both users and tasks with JWT-based authentication, role-based authorization, proper validation, error handling, and clean architecture.
 
+🌐 **Project URL:** [https://github.com/elfeshawy17/todo-app-spring-boot](https://github.com/elfeshawy17/todo-app-spring-boot)
+
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Spring&logoColor=white)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white)
